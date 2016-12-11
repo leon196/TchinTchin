@@ -42,6 +42,9 @@ public class Holder : MonoBehaviour
 		if (animator != null) {
 			animator.SetIKPositionWeight(AvatarIKGoal.RightHand, 1f);
 			animator.SetIKPosition(AvatarIKGoal.RightHand, holding.position);
+
+            animator.SetIKRotationWeight(AvatarIKGoal.RightHand, 1f);
+            animator.SetIKRotation(AvatarIKGoal.RightHand, holding.rotation);
 		}
 	}
 }
