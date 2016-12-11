@@ -29,11 +29,11 @@ public class Holder : MonoBehaviour
 				target.x = Random.Range(-5f,5f);
 				target.z = Random.Range(-5f,5f);
 			}
-		}
 
-		if (animator != null) {
-			animator.SetFloat("BlendWalk", navigation.velocity.magnitude);
-			animator.speed = 0.5f;
+			if (animator != null) {
+				animator.SetFloat("BlendWalk", navigation.velocity.magnitude);
+				animator.speed = 0.5f;
+			}
 		}
 	}
 
