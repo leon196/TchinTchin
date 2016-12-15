@@ -25,7 +25,7 @@ public class TchinTchinController : MonoBehaviour
 		animator = GetComponentInChildren<Animator>();
 		// offset = hand.position - target.position;
 		screenPosition = new Vector3(0.85f, 0.25f, 1f);
-		screenPositionTarget = new Vector3(0.5f, 0.25f, 2.5f);
+		screenPositionTarget = new Vector3(0.5f, 0.25f, 2f);
 		target.parent = hand;
 		GameObject go = new GameObject("TargetHelper");
 		go.hideFlags = HideFlags.HideInHierarchy;
