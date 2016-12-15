@@ -5,7 +5,7 @@ public class Holder : MonoBehaviour
 {
     public Transform holding;
     private Animator animator;
-    private NavMeshAgent navigation;
+    private UnityEngine.AI.NavMeshAgent navigation;
     private Vector3 target;
     private Vector3 offset;
 
@@ -14,7 +14,7 @@ public class Holder : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
-        navigation = GetComponent<NavMeshAgent>();
+        navigation = GetComponent<UnityEngine.AI.NavMeshAgent>();
         target = transform.position;
         offset = transform.InverseTransformPoint(holding.position);
     }
