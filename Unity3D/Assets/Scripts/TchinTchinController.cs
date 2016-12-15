@@ -41,7 +41,7 @@ public class TchinTchinController : MonoBehaviour
 		float depth = Mathf.Sin(ratio * Mathf.PI);
 		Transform camTransform = Camera.main.transform;
 
-		targetHelper.position = Camera.main.ViewportToWorldPoint(offset + screenPosition + Vector3.forward * depth);
+		targetHelper.position = Vector3.Lerp(targetHelper.position, Camera.main.ViewportToWorldPoint(offset + screenPosition + Vector3.forward * depth), Time.deltaTime * 5f);
 
 		Vector3 forward = Vector3.Normalize(targetHelper.position - camTransform.position);
 		forward.y = 0f;
