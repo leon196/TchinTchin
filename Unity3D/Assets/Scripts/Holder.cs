@@ -16,14 +16,20 @@ public class Holder : MonoBehaviour
         animator = GetComponent<Animator>();
         navigation = GetComponent<UnityEngine.AI.NavMeshAgent>();
         target = transform.position;
-        offset = transform.InverseTransformPoint(holding.position);
+        if (holding != null)
+        {
+            offset = transform.InverseTransformPoint(holding.position);
+        }
     }
 
     void Update()
     {
-        Vector3 position = transform.TransformPoint(offset + Vector3.forward * Mathf.Sin(Time.time * 3f) * 0.5f);
-        // position.y += Mathf.Sin(Time.time * 3f) * 0.5f;
-        holding.position = position;
+        if (holding != null) 
+        {
+            Vector3 position = transform.TransformPoint(offset + Vector3.forward * Mathf.Sin(Time.time * 3f) * 0.5f);
+            // position.y += Mathf.Sin(Time.time * 3f) * 0.5f;
+            holding.position = position;
+        }
 
         if (navigation != null)
         {
@@ -44,7 +50,7 @@ public class Holder : MonoBehaviour
 
     void OnAnimatorIK(int layerIndex)
     {
-        if (animator != null)
+        if (animator != null && holding != null)
         {
             animator.SetIKPositionWeight(AvatarIKGoal.RightHand, 1f);
             animator.SetIKPosition(AvatarIKGoal.RightHand, holding.position);

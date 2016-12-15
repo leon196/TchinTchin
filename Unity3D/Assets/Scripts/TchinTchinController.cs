@@ -5,7 +5,6 @@ public class TchinTchinController : MonoBehaviour
 {
 	public Transform target;
 	public Transform elbowHint;
-	public Transform hand;
 
 	public float moveHandSpeed = 1;
 	public float slowMotionTime = 0.2f;
@@ -23,10 +22,8 @@ public class TchinTchinController : MonoBehaviour
 	void Start()
 	{
 		animator = GetComponentInChildren<Animator>();
-		// offset = hand.position - target.position;
 		screenPosition = new Vector3(0.85f, 0.25f, 1f);
 		screenPositionTarget = new Vector3(0.5f, 0.25f, 2f);
-		target.parent = hand;
 		GameObject go = new GameObject("TargetHelper");
 		go.hideFlags = HideFlags.HideInHierarchy;
 		targetHelper = go.transform;
