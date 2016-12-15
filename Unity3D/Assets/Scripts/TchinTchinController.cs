@@ -9,7 +9,7 @@ public class TchinTchinController : MonoBehaviour
 
 	public float moveHandSpeed = 1;
 	public float slowMotionTime = 0.2f;
-	public float slowdownTimeScale = 0.2f;
+	public float slowdownTimeScale = 0.5f;
 
 	private Transform targetHelper;
 	public Vector3 offset = Vector3.zero;
@@ -18,12 +18,14 @@ public class TchinTchinController : MonoBehaviour
 	private float fireStart = 0f;
 	private float fireDelay = 0.4f;
 	private Vector3 screenPosition;
+	private Vector3 screenPositionTarget;
 
 	void Start()
 	{
 		animator = GetComponentInChildren<Animator>();
 		// offset = hand.position - target.position;
-		screenPosition = new Vector3(0.65f, 0.35f, 1f);
+		screenPosition = new Vector3(0.85f, 0.25f, 1f);
+		screenPositionTarget = new Vector3(0.5f, 0.25f, 2.5f);
 		target.parent = hand;
 		GameObject go = new GameObject("TargetHelper");
 		go.hideFlags = HideFlags.HideInHierarchy;
@@ -41,7 +43,10 @@ public class TchinTchinController : MonoBehaviour
 		float depth = Mathf.Sin(ratio * Mathf.PI);
 		Transform camTransform = Camera.main.transform;
 
-		targetHelper.position = Vector3.Lerp(targetHelper.position, Camera.main.ViewportToWorldPoint(offset + screenPosition + Vector3.forward * depth), Time.deltaTime * 5f);
+		Vector3 pos = Vector3.Lerp(screenPosition, screenPositionTarget, depth);
+		pos = Camera.main.ViewportToWorldPoint(offset + pos + Vector3.forward * depth);
+		targetHelper.position = Vector3.Lerp(targetHelper.position, pos, Time.deltaTime * 5f);
+		// targetHelper.position = Vector3.Lerp(targetHelper.position, Camera.main.ViewportToWorldPoint(offset + screenPosition + Vector3.forward * depth), Time.deltaTime * 5f);
 
 		Vector3 forward = Vector3.Normalize(targetHelper.position - camTransform.position);
 		forward.y = 0f;

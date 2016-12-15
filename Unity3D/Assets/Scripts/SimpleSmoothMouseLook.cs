@@ -22,6 +22,10 @@ public class SimpleSmoothMouseLook : MonoBehaviour
  
     void Start()
     {
+        if (lockCursor) {
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+
         // Set target direction to the camera's initial orientation.
         targetDirection = transform.localRotation.eulerAngles;
  
