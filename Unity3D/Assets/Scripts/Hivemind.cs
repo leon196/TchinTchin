@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class Hivemind : MonoBehaviour {
 
-	public GameObject agentPrefab;
+	public GameObject[] agentPrefabArray;
 	public Transform target;
 	public Transform collider;
 	public int count = 30;
+	public float globalSpeed = 1f;
 
 	private float range = 10f;
 	private GameObject[] agentArray;
@@ -16,12 +17,19 @@ public class Hivemind : MonoBehaviour {
 	private Vector3 vectorAvoid;
 	private Vector3 vectorRotate;
 
+	GameObject GetRandomIndividual ()
+	{
+		return agentPrefabArray[Random.Range(0, agentPrefabArray.Length)];
+	}
+
 	void Start ()
 	{
 		agentArray = new GameObject[count];
 		boidArray = new Boid[count];
 		for (int i = 0; i < count; ++i) {
-			agentArray[i] = GameObject.Instantiate(agentPrefab);
+			GameObject go = GameObject.Instantiate(GetRandomIndividual());
+			go.transform.parent = transform;
+			agentArray[i] = go;
 			Boid boid = new Boid();
 			boid.position = new Vector3(Random.Range(-range, range), 0f, Random.Range(-range, range));
 			boidArray[i] = boid;
@@ -62,14 +70,14 @@ public class Hivemind : MonoBehaviour {
 
 			Vector3 move = vectorTarget + vectorAvoid + vectorRotate * 10f;
 			// move.y = 0;
-			move = Vector3.Normalize(move) * 5f;
+			move = Vector3.Normalize(move) * globalSpeed;
 
-			float threshold = 4f;
-			float a = Vector3.Distance(boid.position, collider.position);
-			float w = boid.size - threshold;
-			if (a - w < 0.1f) {
-				move += 100f * Vector3.Normalize(boid.position - collider.position) * Mathf.Max(w, a);
-			}
+			// float threshold = 4f;
+			// float a = Vector3.Distance(boid.position, collider.position);
+			// float w = boid.size - threshold;
+			// if (a - w < 0.1f) {
+			// 	move += 100f * Vector3.Normalize(boid.position - collider.position) * Mathf.Max(w, a);
+			// }
 
 			boid.Move(move);
 			agent.transform.position = boid.position;
